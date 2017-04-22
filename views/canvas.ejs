@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Demo App</title>
+    <link rel="stylesheet" type="text/css" href="/app.css">
+  </head>
+  <body>
+    
+    <div class = "center">
+        <h1 class = "center">Unity Spawner</h1>
+        <canvas id="myCanvas" width="600" height="400"></canvas>
+        <h2 class = "center"></h2>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="/socket.io/socket.io.js"></script>   
+    
+    <script>  
+      var socket = io.connect('http://localhost:3000');
+      socket.on('connect', function(data) {
+          socket.emit('WEB_CONNECT', 'Hello World from client');
+      });
+    </script>
+
+    <script type="text/javascript" src="canvas.js"></script>
+  </body>
+</html>
+
