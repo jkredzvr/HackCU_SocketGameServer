@@ -5,24 +5,48 @@
     <link rel="stylesheet" type="text/css" href="/app.css">
   </head>
   <body>
-    
-    <div class = "center">
-        <h1 class = "center">Unity Spawner</h1>
-        <canvas id="myCanvas" width="600" height="400"></canvas>
-        <h2 class = "center"></h2>
-    </div>
-
+    <section>
+      <div id = "one">
+          <h1 class = "center">Unity Spawner</h1>
+          <canvas id="myCanvas" width="600" height="400" ondrop="drop(event)" ondragover="allowDrop(event)"></canvas>
+          <h2 class = "center">Objects</h2>
+      </div>
+      <div id = "two">
+        <img id="img1" src="github.png" draggable="true" onmousedown="get_pos(event)" ondragstart="drag(event)"/>
+        <br>
+        <img id="img2" src="car.png" draggable="true" onmousedown="get_pos(event)" ondragstart="drag(event)"/>
+        <br>
+        <img id="img3" src="train.png" draggable="true" onmousedown="get_pos(event)" ondragstart="drag(event)"/>
+        <br>
+        <img id="img4" src="rocket.png" draggable="true" onmousedown="get_pos(event)" ondragstart="drag(event)"/>
+      </div>
+    </section>
+    <section>
+      <br>
+      <img id="player" src="player.png">
+    </section>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="/socket.io/socket.io.js"></script>   
     
     <script>  
       var socket = io.connect('http://localhost:3000');
       socket.on('connect', function(data) {
-          socket.emit('WEB_CONNECT', 'Hello World from client');
+          socket.emit('WEBCLIENT_CONNECT', 'Hello World from client');
       });
+
+      socket.on('GET_NEW_COORD', function(data)
+      {
+          console.log("New Coord:"+data);
+      });
+
+      socket.on('WEB_UPDATE_PLAYER', function(data)
+      {
+          console.log("New Player Coord:"+"x:"+data.x+"y:"+data.y);
+          movePlayer(data);
+      });
+
     </script>
 
     <script type="text/javascript" src="canvas.js"></script>
   </body>
 </html>
-
