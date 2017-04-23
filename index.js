@@ -113,7 +113,31 @@ io.on("connection", function(socket){
 		}
 		//console.log(currentUser.name+"move to "+currentUser.position)
 		//Broadcast to all
-		socket.broadcast.emit("WEB_UPDATE_PLAYER", playerPos)
+		socket.broadcast.emit("WEB_UPDATE_PLAYER", playerPos);
+	});
+
+	socket.on("ENEMY_POS", function(data){
+
+		var enemyData =
+		{
+			x:data.posx,
+			y:data.posy,
+			id:data.id
+		}
+		//console.log(currentUser.name+"move to "+currentUser.position)
+		//Broadcast to all
+		socket.broadcast.emit("WEB_UPDATE_ENEMY", enemyData);
+	});
+
+	socket.on("ENEMY_DEAD", function(data){
+
+		var enemyData =
+		{
+			id:data.id
+		}
+		//console.log(currentUser.name+"move to "+currentUser.position)
+		//Broadcast to all
+		socket.broadcast.emit("WEB_UPDATE_ENEMY_DEAD", enemyData);
 	});
 
 

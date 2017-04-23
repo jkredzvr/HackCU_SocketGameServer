@@ -1,4 +1,4 @@
-canvas{
+/*canvas{
     border: 5px solid black;
 }
 
@@ -25,4 +25,7 @@ div#two {
     margin-top: 80px;
     margin-left: 5px;
     float: left;
-}
+}*/
+.stage {  
+    position: absolute; left: 50%;  top: 50%;  transform: translate3d( -50%, -50%, 0 );
+    }

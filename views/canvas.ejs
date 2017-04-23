@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Demo App</title>
+    <title>VR Socket Game</title>
     <link rel="stylesheet" type="text/css" href="/app.css">
   </head>
+  <script src="pixi.min.js"></script>
   <body>
-    <section>
+    <!-- <section>
       <div id = "one">
           <h1 class = "center">Unity Spawner</h1>
           <canvas id="myCanvas" width="600" height="400" ondrop="drop(event)" ondragover="allowDrop(event)"></canvas>
@@ -24,10 +25,19 @@
     <section>
       <br>
       <img id="player" src="player.png">
-    </section>
+    </section> -->
+
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="/socket.io/socket.io.js"></script>   
-    
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script type="text/javascript">
+      var type = "WebGL"
+      if(!PIXI.utils.isWebGLSupported()){
+        type = "canvas"
+      }
+
+      PIXI.utils.sayHello(type)
+    </script>
     <script>  
       var socket = io.connect('http://localhost:3000');
       socket.on('connect', function(data) {
@@ -41,8 +51,19 @@
 
       socket.on('WEB_UPDATE_PLAYER', function(data)
       {
-          console.log("New Player Coord:"+"x:"+data.x+"y:"+data.y);
+          //console.log("New Player Coord:"+"x:"+data.x+"y:"+data.y);
           movePlayer(data);
+      });
+
+      socket.on('WEB_UPDATE_ENEMY', function(data)
+      {
+          console.log("New Enemy Coord:"+"x:"+data.x+"y:"+data.y + "id:"+data.id);
+          moveEnemy(data);
+      });
+
+      socket.on('WEB_UPDATE_ENEMY_DEAD', function(data)
+      {
+          removeEnemy(data);
       });
 
     </script>
